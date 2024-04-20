@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <ArduinoJson.h>
+#include <HardwareSerial.h>
 
 #define TIMEOUT         50 // in ms
 
@@ -18,8 +19,12 @@ WiFiClient client;
 
 bool transmitting = true;
 
+// Serial for Connecting with STM
+HardwareSerial SerialPort(2);
+
 void setup() {
   Serial.begin(115200);
+  SerialPort.begin(115200, SERIAL_8N1, 16, 17);
 
   WiFi.softAPConfig(local_IP, gateway, subnet);
   WiFi.softAP(SSID, PASSWORD);
@@ -39,11 +44,24 @@ void handleRequest(String request) {
   Serial.println(request);
 
   if (request == "stop")
-      transmitting = false;
+    transmitting = false;
   else if (request == "start")
-      transmitting = true;
+    transmitting = true;
+  else
+    for (int i=0; i < 100000; i++) {
+      if (SerialPort.availableForWrite()) {
+          SerialPort.write(request.c_str());
+          break;
+      }
+    }
   
   return;
+}
+
+void handleSTMData() {
+  String Buffer = SerialPort.readString();
+  Serial.print(Buffer);
+  Serial.print("\n");
 }
 
 void loop() {
@@ -57,7 +75,8 @@ void loop() {
       request.trim();
       if(!request.isEmpty()) handleRequest(request);
 
-      // TODO: Receive data from uC
+      // check for readings from STM
+      if (SerialPort.available()) handleSTMData();
 
       // Send data to connected device
       if(transmitting) client.println(generateJsonData());
