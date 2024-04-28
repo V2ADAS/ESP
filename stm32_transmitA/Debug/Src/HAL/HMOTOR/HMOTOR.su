@@ -1,0 +1,4 @@
+HMOTOR.c:16:6:Increment_Pulse_CallBack	8	static
+HMOTOR.c:27:6:HAL_MOTOR_Init	24	static
+HMOTOR.c:49:6:HAL_MOTOR_MOVE	40	static
+HMOTOR.c:74:6:HAL_MOTOR_STOP	8	static
