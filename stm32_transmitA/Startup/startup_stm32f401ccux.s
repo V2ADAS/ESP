@@ -181,7 +181,7 @@ g_pfnVectors:
   .word	I2C2_ER_IRQHandler           			/* I2C2 error interrupt                                               */
   .word	SPI1_IRQHandler              			/* SPI1 global interrupt                                              */
   .word	SPI2_IRQHandler              			/* SPI2 global interrupt                                              */
-  .word	0                            			/* Reserved                                                           */
+  .word	USART1_IRQHandler                            			/* Reserved                                                           */
   .word	0                            			/* Reserved                                                           */
   .word	0                            			/* Reserved                                                           */
   .word	EXTI15_10_IRQHandler         			/* EXTI Line[15:10] interrupts                                        */
