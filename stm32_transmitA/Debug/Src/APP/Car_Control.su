@@ -1,0 +1,3 @@
+Car_Control.c:7:6:CAR_CONTROL	24	static
+Car_Control.c:44:5:getPrevDirection	4	static
+Car_Control.c:48:5:getprevDegree	4	static

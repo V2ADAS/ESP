@@ -1,0 +1,14 @@
+HAL_COMPASS.c:29:6:HCOMPASS_ApplyCalibration	16	static
+HAL_COMPASS.c:37:6:HCOMPASS_Calibrate	56	static
+HAL_COMPASS.c:81:6:HCOMPASS_vInit	24	static
+HAL_COMPASS.c:103:6:HCOMPASS_vSetRowData	48	static
+HAL_COMPASS.c:128:6:HCOMPASS_vReadRowData	16	static
+HAL_COMPASS.c:139:5:HCOMPASS_f32GetPitch	24	static
+HAL_COMPASS.c:147:5:HCOMPASS_f32GetRoll	24	static
+HAL_COMPASS.c:158:5:HCOMPASS_f32GetHeading	24	static
+HAL_COMPASS.c:168:6:HCOMPASS_SetCalibration	48	static
+HAL_COMPASS.c:182:6:HCOMPASS_SetCalibrationOffsets	24	static
+HAL_COMPASS.c:188:6:HCOMPASS_SetCalibrationScales	24	static
+HAL_COMPASS.c:194:5:HCOMPASS_GetCalibrationOffset	16	static
+HAL_COMPASS.c:198:5:HCOMPASS_GetCalibrationScale	16	static
+HAL_COMPASS.c:202:6:HCOMPASS_ClearCalibration	8	static
