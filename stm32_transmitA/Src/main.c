@@ -10,7 +10,7 @@
 #include"MCAL/MUART/MUSART_Config.h"
 #include"MCAL/MUART/MUSART_Private.h"
 //#include"APP/Inc/Path_Tracking.h"
-void Toka_callback()
+void Rx_callback()
 {
 	u8 data_rx ;
 	data_rx = MUART_Receive_Data(UART1);
@@ -55,20 +55,12 @@ int main (void){
 
 
 	//**************UART*********************
-	//	u8 arr_tx[20] = {1,2,3,4,5,6,7,8};
+	u8 arr_tx[20] = {1,2,3,4,5,6,7,8};
 	//	u8 arr_rx[8] ;
-	//	u8* data = "1" ;
-	MUART_vSetRxCallBackFunc(MUART1,Toka_callback);
+	u8* data = "1" ;
+	MUART_vSetRxCallBackFunc(MUART1,Rx_callback);
 	MUART_Enable(UART1);
-	//	MNVIC_vSetPendingFlag(NVIC_USART1);
-	/*	u8 data_rx ;
-	data_rx = MUART_Receive_Byte(UART1);
-	if (data_rx == '1'){
-			MGPIO_vSetPinMode(PORTC, PIN13, OUTPUT);
-			MGPIO_vSetPinValue(PORTC, PIN13, LOW);
-			MGPIO_vSetPinMode(PORTC, PIN14, OUTPUT);
-			MGPIO_vSetPinValue(PORTC, PIN14, HIGH);
-		}*/
+	MUART_Send_Byte(UART1, arr_tx[0);	
 
 	while(1){
 
