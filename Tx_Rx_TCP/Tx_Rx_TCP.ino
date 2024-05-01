@@ -4,6 +4,8 @@
 //#include <HardwareSerial.h>            // Include the HardwareSerial library
 int c;
 char c1;
+int array[5];
+
 #define TIMEOUT         50            // Timeout value in milliseconds
 
 #define SSID            "ESP32_WIFI"       // WiFi network SSID
@@ -44,20 +46,20 @@ void setup() {
 
 // Function to handle incoming requests
 void handleRequest(String request) {
-//  Serial.print(request.length());      // Print the length of the request
-//  Serial.print("REQ IS : ");                  // Print a colon
-//  Serial.println(request);             // Print the request
-  if (!strcmp(request.c_str(),"Forward"))
+  //Serial.print(request.length());      // Print the length of the request
+  //Serial.print("REQ IS : ");                  // Print a colon
+  //Serial.println(request);             // Print the request
+  if (!strcmp(request.c_str(),"f"))
   {
       Serial.println("FORW IS RECIEVED : ");
       Serial2.print('f');      
   }
-  else if (!strcmp(request.c_str(),"Backwards"))
+  else if (!strcmp(request.c_str(),"r"))
   {
       Serial.println("Backwards IS RECIEVED : ");
       Serial2.print('b');            
   }
-  else if (!strcmp(request.c_str(),"Brakes"))
+  else if (!strcmp(request.c_str(),"b"))
   {
       Serial.println("Brakes IS RECIEVED : ");  
       Serial2.print('r');      
@@ -82,9 +84,11 @@ void handleRequest(String request) {
 
 // Function to handle data received from STM
 void handleSTMData() {
-  c1 = Serial2.read();  // Read data from STM32
+  c = Serial2.read();  // Read data from STM32
   Serial.println("Recieved Data :");
-  Serial.print(c1);                     // Print the received data
+ // int i=0;
+ // array[i++]=c1;
+  Serial.print(c);                     // Print the received data
   Serial.print("\n");                       // Print a newline character
 }
 
@@ -117,15 +121,15 @@ String generateJsonData() {
   String jsonString = "";                           // create a JSON string for sending data to the client
   JsonDocument doc;                                 // create a JSON container
   JsonObject object = doc.to<JsonObject>();         // create a JSON Object
-  object["CF"] = 20;                                // add data to JSON object
-  object["CB"] = 15;                                // add data to JSON object
+  object["MSG"] = c;                                // add data to JSON object
+  /*object["CB"] = 15;                                // add data to JSON object
   object["LC"] = 76;                                // add data to JSON object
   object["RC"] = 23;                                // add data to JSON object
   object["LB"] = 23;                                // add data to JSON object
   object["RB"] = 12;                                // add data to JSON object
-  object["ENC"] = 123;                              // add data to JSON object
-  object["SERV"] = 56;                              // add data to JSON object
-  object["TIME"] = 324;                             // add data to JSON object
+  object["ENC"] = 123;     */                         // add data to JSON object
+  //object["SERV"] = 56;                              // add data to JSON object
+ // object["TIME"] = 324;                             // add data to JSON object
   serializeJson(doc, jsonString);                   // convert JSON object to string
   return jsonString;                                // return JSON string
 }
