@@ -4,8 +4,9 @@
 //#include <HardwareSerial.h>            // Include the HardwareSerial library
 int c;
 char c1;
-int array[5];
-
+int i=0;
+int array[8];
+//int Ultra_CF , Ultra_CB,Ultra_LC ,Ultra_RC ,Ultra_LB ,Ultra_RB , ENC , SERV ;
 #define TIMEOUT         50            // Timeout value in milliseconds
 
 #define SSID            "ESP32_WIFI"       // WiFi network SSID
@@ -86,10 +87,10 @@ void handleRequest(String request) {
 void handleSTMData() {
   c = Serial2.read();  // Read data from STM32
   Serial.println("Recieved Data :");
- // int i=0;
- // array[i++]=c1;
+  array[i++]=c;
   Serial.print(c);                     // Print the received data
   Serial.print("\n");                       // Print a newline character
+  if (i==8) i=0;
 }
 
 void loop() 
@@ -121,15 +122,15 @@ String generateJsonData() {
   String jsonString = "";                           // create a JSON string for sending data to the client
   JsonDocument doc;                                 // create a JSON container
   JsonObject object = doc.to<JsonObject>();         // create a JSON Object
-  object["MSG"] = c;                                // add data to JSON object
-  /*object["CB"] = 15;                                // add data to JSON object
-  object["LC"] = 76;                                // add data to JSON object
-  object["RC"] = 23;                                // add data to JSON object
-  object["LB"] = 23;                                // add data to JSON object
-  object["RB"] = 12;                                // add data to JSON object
-  object["ENC"] = 123;     */                         // add data to JSON object
-  //object["SERV"] = 56;                              // add data to JSON object
- // object["TIME"] = 324;                             // add data to JSON object
+  object["CF"] = array[0];                                // add data to JSON object
+  object["CB"] = array[1];                                // add data to JSON object
+  object["LC"] = array[2];                                // add data to JSON object
+  object["RC"] = array[3];                                // add data to JSON object
+  object["LB"] = array[4];                                // add data to JSON object
+  object["RB"] = array[5];                                // add data to JSON object
+  object["ENC"] = array[6];                              // add data to JSON object
+  object["SERV"] = array[7];                              // add data to JSON object
+  object["TIME"] = 1;                             // add data to JSON object
   serializeJson(doc, jsonString);                   // convert JSON object to string
   return jsonString;                                // return JSON string
 }
