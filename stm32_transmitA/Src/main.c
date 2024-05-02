@@ -27,6 +27,18 @@ void Rx_callback()
 		u8 Angle = data_rx - 40 ;
 	}
 }
+
+void Tx_to_uart(u8 Tx_Data[])
+{
+	MUART_Send_Byte(UART1,Tx_Data[0]);
+	MUART_Send_Byte(UART1,Tx_Data[1]);
+	MUART_Send_Byte(UART1,Tx_Data[2]);
+	MUART_Send_Byte(UART1,Tx_Data[3]);
+	MUART_Send_Byte(UART1,Tx_Data[4]);
+	MUART_Send_Byte(UART1,Tx_Data[5]);
+	MUART_Send_Byte(UART1,Tx_Data[6]);
+	MUART_Send_Byte(UART1,Tx_Data[7]);
+}
 int main (void){
 
 	MRCC_vInit();
@@ -56,11 +68,18 @@ int main (void){
 
 	//**************UART*********************
 	u8 arr_tx[20] = {1,2,3,4,5,6,7,8};
-	//	u8 arr_rx[8] ;
-	u8* data = "1" ;
 	MUART_vSetRxCallBackFunc(MUART1,Rx_callback);
 	MUART_Enable(UART1);
-	MUART_Send_Byte(UART1, arr_tx[0);	
+	u8 Ultra_CF = 20;                                // add data to JSON object
+	u8 Ultra_CB = 15;                                // add data to JSON object
+	u8 Ultra_LC = 76;                                // add data to JSON object
+	u8 Ultra_RC = 23;                                // add data to JSON object
+	u8 Ultra_LB = 23;                                // add data to JSON object
+	u8 Ultra_RB = 12;							     //
+	u8  ENC  = 123;                                  // add data to JSON object
+	u8  SERV = 56;
+	u8 Tx_Data[]={Ultra_CF,Ultra_CB,Ultra_LC,Ultra_RC,Ultra_LB,Ultra_RB,ENC,SERV};
+	Tx_to_uart(Tx_Data);
 
 	while(1){
 
