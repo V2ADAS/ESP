@@ -12,20 +12,40 @@
 //#include"APP/Inc/Path_Tracking.h"
 void Rx_callback()
 {
-	u8 data_rx ;
-	data_rx = MUART_Receive_Data(UART1);
-	if (data_rx == 'f'){
-		MGPIO_vSetPinValue(PORTC, PIN13, LOW);
-	}
-	else if (data_rx == 'b'){
-		MGPIO_vSetPinValue(PORTC, PIN14, HIGH);
-	}
-	else if (data_rx == 'r'){
-		MGPIO_vSetPinValue(PORTC, PIN15, HIGH);
-	}
-	else{
-		u8 Angle = data_rx - 40 ;
-	}
+u8 data_rx ;
+data_rx = MUART_Receive_Data(UART1);
+//MGPIO_vSetPinValue(PORTC, PIN13, LOW);
+if (data_rx == 'f' || data_rx == 102 ){
+//MGPIO_vSetPinValue(PORTC, PIN13, LOW);
+}
+else if (data_rx == 'b'){
+//MGPIO_vSetPinValue(PORTC, PIN13, LOW);
+//MGPIO_vSetPinValue(PORTC, PIN14, HIGH);
+}
+else if (data_rx == 'r'){
+//MGPIO_vSetPinValue(PORTC, PIN15, HIGH);
+}
+else if (data_rx == 'x' || data_rx == 120 ){
+MGPIO_vSetPinValue(PORTC, PIN13, LOW);
+// Navigation Mode
+}
+else if (data_rx == 'y' || data_rx == 121){
+MGPIO_vSetPinValue(PORTC, PIN14, HIGH);
+// Auto-Parking Mode
+}
+else if (data_rx == 'z' || data_rx == 122){
+// Drive Back Mode
+}
+else if (data_rx == '{' || data_rx == 123){
+// Record Mode
+}
+else if (data_rx == '|' || data_rx == 124){
+// Replay park Mode
+}
+else{
+//MGPIO_vSetPinValue(PORTC, PIN14, HIGH);
+u8 Angle = data_rx - 40 ;
+}
 }
 
 void Tx_to_uart(u8 Tx_Data[])
